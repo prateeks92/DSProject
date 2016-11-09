@@ -1,0 +1,53 @@
+@CHARSET "ISO-8859-1";
+/* Imports */
+@import url("reset.css");
+@import url("global-forms.css");
+ 
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #FD9460;
+}
+
+ul.tab li {float: left;}
+
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+ul.tab li:hover {background-color: #FDC960;text-shadow: 1px 1px 1px #333;}
+
+ul.tab li:focus, .active {background-color: #FDC960;}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+body {
+  color: #000305;
+  font-size: 87.5%; /* Base font size: 14px */
+  font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  line-height: 1.429;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  }
+
+  div {
+    margin-left: 25em;
+    margin-top: 3em;
+
+  }
+}
