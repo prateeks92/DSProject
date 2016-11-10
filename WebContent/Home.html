@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <title>Tech Assist - Instant Help for Everyone!!</title>
-
+<script type="text/javascript" src="VoiceRecognition.js"></script>
 <link rel="stylesheet" href=".\main.css" type="text/css" />
 
 <link rel="stylesheet" type="text/css" media="all" href="css/ie6.css" />
@@ -36,10 +36,12 @@
 		<img src="..\Resources\mic.png" align="middle"
 			id="micr" onclick="StartRecording()" />
 	</div>
+	<div align="center"><h2 id="transcript">transcript</h2></div>
 </body>
 <script type="text/javascript">
 	function StartRecording() {
 		// body...
+		startAsr();
 		document.getElementById("micr").src = "../Resources/micw.png";
 
 	}
