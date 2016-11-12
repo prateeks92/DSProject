@@ -43,7 +43,8 @@
 			},
 			data: JSON.stringify({ q: text, lang: "en" }),
 			success: function(data) {
-				setResponse(JSON.stringify(data, undefined, 2));
+				//reply is being parsed
+				setResponse(JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2) + "\n\n");;
 			},
 			error: function() {
 				setResponse("Internal Server Error");
