@@ -17,8 +17,7 @@
       recognition.onresult = function(e) {
         document.getElementById('transcript').innerHTML
                                  = e.results[0][0].transcript;
-        recognition.stop();
-        send();
+        stopRecognition(recognition);
 //        document.getElementById('labnol').submit();
       };
       
@@ -26,7 +25,6 @@
         recognition.stop();
       }
     }
-    send();
   }
  
  var baseUrl = "https://api.api.ai/v1/";
@@ -44,13 +42,16 @@
 			data: JSON.stringify({ q: text, lang: "en" }),
 			success: function(data) {
 				//reply is being parsed
-				setResponse(JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2) + "\n\n");;
+				var val=JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2) + "\n\n";
+				setResponse(val);
+				tts(val);
 			},
 			error: function() {
 				setResponse("Internal Server Error");
 			}
 		});
 		setResponse("Loading...");
+		
 	}
  function switchRecognition() {
 		if (recognition) {
@@ -69,10 +70,25 @@
 	function setResponse(val) {
 		document.getElementById('reply').innerHTML = val;
 	}
-	function stopRecognition() {
+	function stopRecognition(recognition) {
 		if (recognition) {
 			recognition.stop();
 			recognition = null;
+	        send();
 		}
-		updateRec();
+/*		updateRec();*/
+	}
+	function tts(val){
+    var u = new SpeechSynthesisUtterance();
+    var voices = window.speechSynthesis.getVoices();
+    u.voice = voices[4]; // Note: some voices don't support altering params
+    u.voiceURI = 'native';
+    u.volume = 1; // 0 to 1
+    u.rate = 1; // 0.1 to 10
+    u.pitch = 2; //0 to 2
+    u.text = val;
+    u.lang = 'en-US';
+    u.rate = 1;
+/*    u.onend = function(event) { alert('Finished in ' + event.elapsedTime + ' seconds.'); }*/
+    speechSynthesis.speak(u);
 	}
