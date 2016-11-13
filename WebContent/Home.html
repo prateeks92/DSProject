@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Tech Assist - Instant Help for Everyone!!</title>
-    <script type="text/javascript" src="VoiceRecognition.js"></script>
-    <!-- <script type="text/javascript" src="js/api.ai.min.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href=".\main.css" type="text/css" />
+<head>
+<meta charset="utf-8" />
+<title>Tech Assist - Instant Help for Everyone!!</title>
+<script type="text/javascript" src="VoiceRecognition.js"></script>
+<!-- <script type="text/javascript" src="js/api.ai.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href=".\main.css" type="text/css" />
 
-    <link rel="stylesheet" type="text/css" media="all" href="css/ie6.css" />
-    <![endif]-->
+<link rel="stylesheet" type="text/css" media="all" href="css/ie6.css" />
+<![endif]-->
 
 <h1 align="middle">
 	<a href="#">Tech Assist - <strong>Instant Help for
@@ -26,21 +27,26 @@
 			alt="University of Florida" align="right" />
 	</figure>
 	<h2>Tech Assist - UF Helpdesk Assistant</h2>
-	<p>A one stop solution to all your UF Helpdesk Problems. Customer	service which won't keep you waiting..</p>
+	<p>A one stop solution to all your UF Helpdesk Problems. Customer
+		service which won't keep you waiting..</p>
 
 </aside>
 <!-- /#featured -->
 
 <body id="mic" class="body">
-	<div>
-		<input type="textbox" id="userinput"><img src="..\Resources\mic.png" id="micr" onclick="StartRecording()" style="width:40px;height:30px;" align="bottom" /> <img src="..\Resources\mute.png" id="spkr" onclick="StartSpeaking()" style="width:30px;height:30px;" /><br><br>
-
-		<textarea id="transcript" cols="40" rows="20"></textarea>
-		
-		
+	<div align="center">
+		<img src="..\Resources\mic.png" align="middle"
+			id="micr" onclick="StartRecording()" />
 	</div>
+	<div align="center"><h2 id="transcript">transcript</h2></div>
+		<div align="center"><h2 id="reply">reply</h2></div>
 </body>
 <script type="text/javascript">
-	
+	function StartRecording() {
+		// body...
+		startAsr();
+		document.getElementById("micr").src = "../Resources/micw.png";
+		
+	}
 </script>
 </html>
