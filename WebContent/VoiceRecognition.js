@@ -53,7 +53,7 @@ function startAsr()
 		//Displaying the result
 		recognition.onresult = function(e) 
 		{
-        	document.getElementById('userinput').value = e.results[0][0].transcript;
+        	document.getElementById('userinput').innerHTML = e.results[0][0].transcript;
         	stopRecognition(recognition);
 		};
       

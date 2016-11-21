@@ -2,8 +2,9 @@ var speak = 0;
 var record = 0;
 var inp = "";
 var baseUrl = "https://api.api.ai/v1/";
-var accessToken = "35b35640bfc745819840070409a7059b";
+var accessToken = "1cf8b572972e473a897b52c85936017c";
 var reply = "";
+var sesId = 0;
 
 var $messages = $('.messages-content'),
     d, h, m,
@@ -100,7 +101,7 @@ function send()
     {
       "Authorization": "Bearer " + accessToken
     },
-    data: JSON.stringify({ q: text, lang: "en" }),
+    data: JSON.stringify({ q: text, lang: "en", sessionId: sesId }),
     success: function(data) 
     {
       //reply is being parsed

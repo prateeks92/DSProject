@@ -19,7 +19,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body onload="getSessionId()">
     <div class="chat">
       <div class="chat-title">
         <h1>Tech. Assist</h1>
@@ -51,6 +51,9 @@
     function Speak()
     {
       StartSpeaking();
+    }
+    function getSessionId(){
+    	sesId = Math.floor(Math.random()*10000000000);
     }
 
     function StartSpeaking() 
