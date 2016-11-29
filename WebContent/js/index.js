@@ -4,6 +4,7 @@ var inp = "";
 var baseUrl = "https://api.api.ai/v1/";
 var accessToken = "5b096d6112a14048be2761bc7176dcae";
 var reply = "";
+var link = "";
 var sesId = 0;
 
 var $messages = $('.messages-content'),
@@ -106,8 +107,14 @@ function send()
     {
       //reply is being parsed
       reply = JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2);
+      link = JSON.stringify(data['result']['action'],undefined,2);
+      var linkArr = link.split('"');
       systemMessage(reply);
-
+      if(linkArr[1]=="account.problem.password.\\"){
+    	  linkArr[2] = linkArr[2].substring(0,linkArr[2].lastIndexOf("/"))
+      var win = window.open(linkArr[2],'','height=700,width=500');
+      win.focus();
+      }
       if (speak == 1) 
       {
         tts();
