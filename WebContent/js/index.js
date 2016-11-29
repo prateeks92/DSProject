@@ -2,7 +2,7 @@ var speak = 0;
 var record = 0;
 var inp = "";
 var baseUrl = "https://api.api.ai/v1/";
-var accessToken = "1cf8b572972e473a897b52c85936017c";
+var accessToken = "5b096d6112a14048be2761bc7176dcae";
 var reply = "";
 var sesId = 0;
 
