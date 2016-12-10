@@ -2,8 +2,10 @@ var speak = 0;
 var record = 0;
 var inp = "";
 var baseUrl = "https://api.api.ai/v1/";
-var accessToken = "35b35640bfc745819840070409a7059b";
+var accessToken = "5b096d6112a14048be2761bc7176dcae";
 var reply = "";
+var link = "";
+var sesId = 0;
 
 var $messages = $('.messages-content'),
     d, h, m,
@@ -100,13 +102,19 @@ function send()
     {
       "Authorization": "Bearer " + accessToken
     },
-    data: JSON.stringify({ q: text, lang: "en" }),
+    data: JSON.stringify({ q: text, lang: "en", sessionId: sesId }),
     success: function(data) 
     {
       //reply is being parsed
       reply = JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2);
+      link = JSON.stringify(data['result']['action'],undefined,2);
+      var linkArr = link.split('"');
       systemMessage(reply);
-
+      if(linkArr[1]=="account.problem.password.\\"){
+    	  linkArr[2] = linkArr[2].substring(0,linkArr[2].lastIndexOf("/"))
+      var win = window.open(linkArr[2],'','height=700,width=500');
+      win.focus();
+      }
       if (speak == 1) 
       {
         tts();
@@ -243,7 +251,7 @@ function tts()
     u.voiceURI = 'native';
     u.volume = 1; // 0 to 1
     u.rate = 1; // 0.1 to 10
-    u.pitch = 2; //0 to 2
+    u.pitch = 0.1; //0 to 2
     u.text = reply;
     u.lang = 'en-US';
     u.rate = 1;

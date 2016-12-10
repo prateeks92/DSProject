@@ -53,7 +53,7 @@ function startAsr()
 		//Displaying the result
 		recognition.onresult = function(e) 
 		{
-        	document.getElementById('userinput').value = e.results[0][0].transcript;
+        	document.getElementById('userinput').innerHTML = e.results[0][0].transcript;
         	stopRecognition(recognition);
 		};
       
@@ -153,7 +153,7 @@ function tts()
     u.voiceURI = 'native';
    	u.volume = 1; // 0 to 1
     u.rate = 1; // 0.1 to 10
-   	u.pitch = 2; //0 to 2
+   	u.pitch = 0.1; //0 to 2
     u.text = reply;
    	u.lang = 'en-US';
     u.rate = 1;
