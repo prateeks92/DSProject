@@ -6,6 +6,8 @@ var accessToken = "5b096d6112a14048be2761bc7176dcae";
 var reply = "";
 var link = "";
 var sesId = 0;
+var log = log4javascript.getDefaultLogger();
+
 
 var $messages = $('.messages-content'),
     d, h, m,
@@ -16,7 +18,7 @@ function StartRecording()
 {
   if (record == 0) 
   {
-    document.getElementById("micr").innerHTML = "Recording";
+    document.getElementById("micr").innerHTML = "Listening";
     record = 1;
     startAsr();
   }
@@ -24,7 +26,7 @@ function StartRecording()
     if(record == 1)
     {
       record = 0;
-      document.getElementById("micr").innerHTML = "Record";
+      document.getElementById("micr").innerHTML = "Speak!";
     }
 }
 
@@ -64,12 +66,14 @@ function startAsr()
     {
         inp = e.results[0][0].transcript;
         document.getElementById('userinput').value = inp;
+        log.info("User: "+ inp );
         stopRecognition(recognition);
     };
       
       recognition.onerror = function(e) 
       {
           recognition.stop();
+          log.error("An error occured in recognition");
     }
   }
 }
@@ -83,7 +87,7 @@ function stopRecognition(recognition)
     recognition = null;
     msg = inp;
     record = 0;
-    document.getElementById("micr").innerHTML = "Record";
+    document.getElementById("micr").innerHTML = "Speak!";
     insertMessage();
     send();
   }
@@ -107,14 +111,21 @@ function send()
     {
       //reply is being parsed
       reply = JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2);
+      
       link = JSON.stringify(data['result']['action'],undefined,2);
       var linkArr = link.split('"');
+      
       systemMessage(reply);
-      if(linkArr[1]=="account.problem.password.\\"){
+      log.info("System: "+reply);
+      
+      if(linkArr[1]=="webpage.\\"){
+    	  log.info("Link opened1 : "+linkArr[2]);
     	  linkArr[2] = linkArr[2].substring(0,linkArr[2].lastIndexOf("/"))
       var win = window.open(linkArr[2],'','height=700,width=500');
-      win.focus();
+//      win.focus();
+      log.info("Link opened : "+linkArr[2]);
       }
+      
       if (speak == 1) 
       {
         tts();
@@ -124,6 +135,7 @@ function send()
     error: function() 
     {
       setResponse("Internal Server Error");
+      log.error("Internal server Error");
     }
   });
 
@@ -229,13 +241,13 @@ function tts()
 {
    	var u = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
-    u.voice = voices[10]; // Note: some voices don't support altering params
-    u.voiceURI = 'native';
-    u.volume = 1; // 0 to 1
-    u.rate = 1; // 0.1 to 10
-    u.pitch = 1; //0 to 2
+    u.voice = voices[2]; // Note: some voices don't support altering params
+//    u.voiceURI = 'native';
+//    u.volume = 1; // 0 to 1
+//    u.rate = 1; // 0.1 to 10
+//    u.pitch = 1; //0 to 2	
     u.text = reply;
-    u.lang = 'en-US';
+//    u.lang = 'en-US';
     u.rate = 1;
     speechSynthesis.speak(u);
 }
