@@ -66,7 +66,7 @@ function startAsr()
     {
         inp = e.results[0][0].transcript;
         document.getElementById('userinput').value = inp;
-        log.info("User: "+ inp );
+//        log.info("User: "+ inp );
         stopRecognition(recognition);
     };
       
@@ -96,6 +96,7 @@ function stopRecognition(recognition)
 function send() 
 {
   var text = inp;
+  log.info("User: "+ text );
   $.ajax(
   {
     type: "POST",
