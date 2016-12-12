@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+<title> Ticket </title>
+
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+    <link rel="stylesheet" href="./ticketstyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="css/ie6.css" />
+
+
+    <script type="text/javascript">
+
+	function sendclicked()
+	{
+		var user = document.getElementById('username').value;
+		var email = document.getElementById('email').value;
+		var shde = document.getElementById('shortprob').value;
+		var londe = document.getElementById('detailprob').value;
+
+		$.ajax({
+		  type: "POST",
+		  url: "db.php",
+		  data: {name:user, em:email, sh:shde, lo:londe}
+		}).done(function( msg ) {
+		
+		alert( "Ticket Generated: " + msg );
+		
+		}); 
+	}
+	</script>
+    
+</head>
+
+
+<body style="background-image: url('back.png');">
+<div class="chat">
+    <div class="chat-title">  
+        <h1>Ticket</h1>
+        <h2></h2>
+    </div> 
+    
+                
+    <div class="messages">      
+	 
+	 <br>
+		<label for="name" style="margin-left: 10px;">Name:</label><br />
+		<div class="message-box">
+        <textarea type="text" class="message-input" placeholder="Name..." id="username"></textarea>
+        </div>
+	
+	<br>
+	\
+		<label for="email" style="margin-left: 10px;">Email:</label><br />
+		<div class="message-box">
+        <textarea type="text" class="message-input" placeholder="email..." id="email"></textarea>
+        </div>
+	
+	<br>
+	
+		<label for="short_problem" style="margin-left: 10px;">Short Description of Problem:</label><br />
+		<div class="message-box">
+        <textarea type="text" class="message-input" placeholder="Type message..." id="shortprob"></textarea>
+        </div>
+	
+	<br>
+	  
+	    <label for="long_problem" style="margin-left: 10px;">Detailed Description of Problem:</label><br />
+		<div class="message-box">
+        <textarea rows="4" type="text" class="message-input" placeholder="Type here..." id="detailprob"></textarea>
+        </div>
+	
+	 <br>
+	 
+	 <label for="date" style="margin-left: 10px;">Date:</label><br />
+		<div class="message-box">
+        <textarea type="date" class="message-input" placeholder="Type Date..." id="date"></textarea>
+        </div>
+	
+     <br>	
+	 <br>
+	 <br>
+	 
+	<center>
+	<button type="submit" class="message-submit" id="subm" onclick="sendclicked()">Submit</button>
+     
+     </center>
+     
+     <br>   
+      </div>       
+    
+      
+      
+</div>
+
+</body>
+
+</html>
