@@ -7,7 +7,8 @@ var reply = "";
 var link = "";
 var sesId = 0;
 var log = log4javascript.getDefaultLogger();
-
+var intent = "";
+var userna = "";
 
 var $messages = $('.messages-content'),
     d, h, m,
@@ -66,7 +67,6 @@ function startAsr()
     {
         inp = e.results[0][0].transcript;
         document.getElementById('userinput').value = inp;
-//        log.info("User: "+ inp );
         stopRecognition(recognition);
     };
       
@@ -96,7 +96,7 @@ function stopRecognition(recognition)
 function send() 
 {
   var text = inp;
-  log.info("User: "+ text );
+  log.info("User: "+ inp );
   $.ajax(
   {
     type: "POST",
@@ -114,6 +114,62 @@ function send()
       reply = JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2);
       
       link = JSON.stringify(data['result']['action'],undefined,2);
+
+      intent = JSON.stringify(data['result']['metadata']['intentName'], undefined, 2);
+
+      intent = intent.substring(1,intent.length-1);
+
+      userna = JSON.stringify(data['result']['parameters']['name-1'], undefined, 2);
+
+      if(typeof(userna) != "undefined")
+      {
+      	userna = userna.substring(1,userna.length-1);
+        localStorage.setItem("uname",userna);
+      }
+
+      switch(intent)
+      {
+      	case "account-password":
+      		localStorage.setItem("issue", "gatorlink password");
+      		break;
+
+      	case "android_net":
+      		localStorage.setItem("issue", "connectivity on android");
+      		break;
+
+      	case "mac_net":
+      		localStorage.setItem("issue", "connectivity on mac");
+      		break;
+
+      	case "windows_net":
+      		localStorage.setItem("issue", "connectivity on windows");
+      		break;
+
+      	case "iphone_net":
+      		localStorage.setItem("issue", "connectivity on iphone");
+      		break;
+      	
+      	case "library-one":
+      		localStorage.setItem("issue", "room reservation in Marston");
+      		break;
+
+      	case "library-two":
+      		localStorage.setItem("issue", "room reservation in Library West");
+      		break;
+
+      	case "courses-offered":
+      		localStorage.setItem("issue", "courses offered");
+      		break;
+
+      	case "elearning-main":
+      		localStorage.setItem("issue", "e-learning");
+      		break;
+
+      	case "elearning-schedule":
+      		localStorage.setItem("issue", "e-learning dashboard");
+      		break;
+      }
+
       var linkArr = link.split('"');
       
       systemMessage(reply);
@@ -123,7 +179,7 @@ function send()
     	  log.info("Link opened1 : "+linkArr[2]);
     	  linkArr[2] = linkArr[2].substring(0,linkArr[2].lastIndexOf("/"))
       var win = window.open(linkArr[2],'','height=700,width=500');
-//      win.focus();
+
       log.info("Link opened : "+linkArr[2]);
       }
       
@@ -242,13 +298,13 @@ function tts()
 {
    	var u = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
-    u.voice = voices[2]; // Note: some voices don't support altering params
-//    u.voiceURI = 'native';
-//    u.volume = 1; // 0 to 1
-//    u.rate = 1; // 0.1 to 10
-//    u.pitch = 1; //0 to 2	
+    u.voice = voices[1]; // Note: some voices don't support altering params
+    u.voiceURI = 'native';
+    u.volume = 0.8; // 0 to 1
+    u.rate = 1; // 0.1 to 10
+    u.pitch = 1; //0 to 2	
     u.text = reply;
-//    u.lang = 'en-US';
-    u.rate = 1;
+    u.lang = 'en-UK';
+//    u.rate = 1;
     speechSynthesis.speak(u);
 }
