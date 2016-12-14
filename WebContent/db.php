@@ -1,8 +1,9 @@
 <?php
+		$sessionid = $_POST['ses'];
 		$name = $_POST['name'];
-		$email = $_POST['em'];
 		$shortde = $_POST['sh'];
 		$longde = $_POST['lo'];
+		$emailid = $_POST['em'];
 
 		$servername = "localhost";
 		$username = "root";
@@ -16,19 +17,14 @@
 		    die("Connection failed: " . $conn->connect_error);
 		} 
 
-		$sql = "INSERT INTO tickets (name, shortdesc, longdesc)
-		VALUES ('$name', '$shortde', '$longde');";
+		$sql = "INSERT INTO tickets (session, name, shortdesc, longdesc, email)
+		VALUES ('$sessionid', '$name', '$shortde', '$longde', '$emailid');"; 
 
-		$sql .= "SELECT LAST_INSERT_ID();";
+		
 
-		if ($conn->multi_query($sql) === TRUE) 
+		if ($conn->query($sql) === TRUE) 
 		{
-			$result = $conn->store_result(); // $conn->query($getid);
-			$conn->next_result();
-			$result = $conn->store_result();
-			$row = $result->fetch_row();
-
-			echo "Your Ticket ID is : " .$row[0];
+			echo "Your Ticket ID is : " .$sessionid;
 		}
 		else 
 		{
