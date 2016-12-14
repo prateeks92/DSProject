@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./ticketstyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="all" href="css/ie6.css" />
+    <script src="js/index.js"></script>
 
 
     <script type="text/javascript">
@@ -19,82 +20,85 @@
 		var email = document.getElementById('email').value;
 		var shde = document.getElementById('shortprob').value;
 		var londe = document.getElementById('detailprob').value;
-
+		var sess = localStorage.sessionID;
 		$.ajax({
 		  type: "POST",
 		  url: "db.php",
-		  data: {name:user, em:email, sh:shde, lo:londe}
+		  data: {ses:sess, name:user, em:email, sh:shde, lo:londe}
 		}).done(function( msg ) {
-		
-		alert( "Ticket Generated: " + msg );
-		
-		}); 
-		
+
+		alert( "Ticket Generated: " + msg )
 		window.close();
+
+		});
+
+	}
+
+
+	function autofill()
+	{
+		document.getElementById('username').value = localStorage.uname;
+		document.getElementById('shortprob').value = localStorage.issue;
+		document.getElementById('email').focus();
 	}
 	</script>
-    
+
+
+
 </head>
 
 
-<body style="background-image: url('back.png');">
+<body style="background-image: url('back.png');" onload="autofill()">
 <div class="chat">
-    <div class="chat-title">  
+    <div class="chat-title">
         <h1>Ticket</h1>
         <h2></h2>
-    </div> 
-    
-                
-    <div class="messages">      
-	 
+    </div>
+
+
+    <div class="messages">
+
 	 <br>
 		<label for="name" style="margin-left: 10px;">Name:</label><br />
 		<div class="message-box">
-        <textarea type="text" class="message-input" placeholder="Name..." id="username"></textarea>
+        <textarea type="text" class="message-input" placeholder="Name..." id="username" style="font-size:15px;"></textarea>
         </div>
-	
+
 	<br>
-	
+
 		<label for="email" style="margin-left: 10px;">Email:</label><br />
 		<div class="message-box">
-        <textarea type="text" class="message-input" placeholder="email..." id="email"></textarea>
+        <textarea type="text" class="message-input" placeholder="email..." id="email" style="font-size:15px;"></textarea>
         </div>
-	
+
 	<br>
-	
+
 		<label for="short_problem" style="margin-left: 10px;">Short Description of Problem:</label><br />
 		<div class="message-box">
-        <textarea type="text" class="message-input" placeholder="Type message..." id="shortprob"></textarea>
+        <textarea type="text" class="message-input" placeholder="Type message..." id="shortprob" style="font-size:15px;"></textarea>
         </div>
-	
+
 	<br>
-	  
+
 	    <label for="long_problem" style="margin-left: 10px;">Detailed Description of Problem:</label><br />
 		<div class="message-box">
-        <textarea rows="4" type="text" class="message-input" placeholder="Type here..." id="detailprob"></textarea>
+        <textarea rows="4" type="text" class="message-input" placeholder="Type here..." id="detailprob" style="font-size:15px;"></textarea>
         </div>
-	
+
 	 <br>
-	 
-	 <label for="date" style="margin-left: 10px;">Date:</label><br />
-		<div class="message-box">
-        <textarea type="date" class="message-input" placeholder="Type Date..." id="date"></textarea>
-        </div>
-	
-     <br>	
+
 	 <br>
-	 <br>
-	 
+
 	<center>
 	<button type="submit" class="message-submit" id="subm" onclick="sendclicked()">Submit</button>
-     
+
      </center>
-     
-     <br>   
-      </div>       
-    
-      
-      
+
+     <br>
+      </div>
+
+
+
 </div>
 
 </body>
