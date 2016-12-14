@@ -96,14 +96,16 @@ function stopRecognition(recognition)
 function send() 
 {
 	var text = "";
-  if(intent == "greetings"){
-	  if(inp=="myself"||inp=="Myself"){
+	if(intent == "greetings" && inp.split(" ").length==1)
+	{
+	  if(inp=="myself"||inp=="Myself"||inp=="Me"||inp=="me")
+	  {
 		  inp = "hi"
 	  }
-  text = "this is "+inp;
-} else {
+	  text = "this is "+inp;
+	} else {
 	text = inp;
-}
+	}
   log.info("User: "+ inp );
   $.ajax(
   {
@@ -140,6 +142,10 @@ function send()
       	case "account-password":
       		localStorage.setItem("issue", "gatorlink password");
       		break;
+      		
+      	case "account-username":
+      		localStorage.setItem("issue", "gatorlink username");
+      		break;
 
       	case "android_net":
       		localStorage.setItem("issue", "connectivity on android");
@@ -155,6 +161,10 @@ function send()
 
       	case "iphone_net":
       		localStorage.setItem("issue", "connectivity on iphone");
+      		break;
+      		
+      	case "otheros_net":
+      		localStorage.setItem("issue", "connectivity");
       		break;
       	
       	case "library-one":
