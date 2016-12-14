@@ -95,7 +95,15 @@ function stopRecognition(recognition)
 
 function send() 
 {
-  var text = inp;
+	var text = "";
+  if(intent == "greetings"){
+	  if(inp=="myself"||inp=="Myself"){
+		  inp = "hi"
+	  }
+  text = "this is "+inp;
+} else {
+	text = inp;
+}
   log.info("User: "+ inp );
   $.ajax(
   {
@@ -178,7 +186,7 @@ function send()
       if(linkArr[1]=="webpage.\\"){
     	  log.info("Link opened1 : "+linkArr[2]);
     	  linkArr[2] = linkArr[2].substring(0,linkArr[2].lastIndexOf("/"))
-      var win = window.open(linkArr[2],'','height=700,width=500');
+      var win = window.open(linkArr[2],'','height=700,width=700');
 
       log.info("Link opened : "+linkArr[2]);
       }
@@ -298,13 +306,13 @@ function tts()
 {
    	var u = new SpeechSynthesisUtterance();
     var voices = window.speechSynthesis.getVoices();
-    u.voice = voices[1]; // Note: some voices don't support altering params
+    u.voice = voices[2]; // Note: some voices don't support altering params
     u.voiceURI = 'native';
-    u.volume = 0.8; // 0 to 1
-    u.rate = 1; // 0.1 to 10
-    u.pitch = 1; //0 to 2	
+//    u.volume = 1; // 0 to 1
+//    u.rate = 1; // 0.1 to 10
+//    u.pitch = 1; //0 to 2	
     u.text = reply;
-    u.lang = 'en-UK';
-//    u.rate = 1;
+//    u.lang = 'en-UK';
+    u.rate = 1;
     speechSynthesis.speak(u);
 }
