@@ -127,6 +127,11 @@ function send()
 
       intent = JSON.stringify(data['result']['metadata']['intentName'], undefined, 2);
 
+      if(intent == null || intent == "")
+      {
+      	intent = "intent";
+      }
+      
       intent = intent.substring(1,intent.length-1);
 
       userna = JSON.stringify(data['result']['parameters']['name-1'], undefined, 2);
