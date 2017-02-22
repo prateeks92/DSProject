@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+<title> Ticket </title>
+
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
+    <link rel="stylesheet" href="./ticketstyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="css/ie6.css" />
+    <script src="js/index.js"></script>
+
+
+    <script type="text/javascript">
+
+	function sendclicked()
+	{
+		var user = document.getElementById('username').value;
+		var email = document.getElementById('email').value;
+		var shde = document.getElementById('shortprob').value;
+		var londe = document.getElementById('detailprob').value;
+		var sess = localStorage.sessionID;
+		$.ajax({
+		  type: "POST",
+		  url: "db.php",
+		  data: {ses:sess, name:user, em:email, sh:shde, lo:londe}
+		}).done(function( msg ) {
+
+		alert( "Ticket Generated: " + msg )
+		window.close();
+
+		});
+
+	}
+
+
+	function autofill()
+	{
+		document.getElementById('username').value = localStorage.uname;
+		document.getElementById('shortprob').value = localStorage.issue;
+		document.getElementById('email').focus();
+	}
+	</script>
+
+
+
+</head>
+
+
+<body style="background-image: url('back.png');" onload="autofill()">
+<div class="chat">
+    <div class="chat-title">
+        <h1>Ticket</h1>
+        <h2></h2>
+    </div>
+
+
+    <div class="messages">
+
+	 <br>
+		<label for="name" style="margin-left: 10px;">Name:</label><br />
+		<div class="message-box">
+        <textarea type="text" class="message-input" placeholder="Name..." id="username" style="font-size:15px;"></textarea>
+        </div>
+
+	<br>
+
+		<label for="email" style="margin-left: 10px;">Email:</label><br />
+		<div class="message-box">
+        <textarea type="text" class="message-input" placeholder="email..." id="email" style="font-size:15px;"></textarea>
+        </div>
+
+	<br>
+
+		<label for="short_problem" style="margin-left: 10px;">Short Description of Problem:</label><br />
+		<div class="message-box">
+        <textarea type="text" class="message-input" placeholder="Type message..." id="shortprob" style="font-size:15px;"></textarea>
+        </div>
+
+	<br>
+
+	    <label for="long_problem" style="margin-left: 10px;">Detailed Description of Problem:</label><br />
+		<div class="message-box">
+        <textarea rows="4" type="text" class="message-input" placeholder="Type here..." id="detailprob" style="font-size:15px;"></textarea>
+        </div>
+
+	 <br>
+
+	 <br>
+
+	<center>
+	<button type="submit" class="message-submit" id="subm" onclick="sendclicked()">Submit</button>
+
+     </center>
+
+     <br>
+      </div>
+
+
+
+</div>
+
+</body>
+
+</html>

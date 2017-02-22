@@ -9,20 +9,17 @@
 
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans'>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css'>
-
     <link rel="stylesheet" href="./style.css">
-
     <script type="text/javascript" src="VoiceRecognition.js"></script>
-    <!-- <script type="text/javascript" src="js/api.ai.min.js"></script> -->
+	<script type="text/javascript" src="log4javascript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" media="all" href="css/ie6.css" />
-    <![endif]-->
   </head>
 
   <body onload="getSessionId()">
     <div class="chat">
       <div class="chat-title">
-        <h1>Tech. Assist</h1>
+        <h1>UF Computing Helpdesk</h1>
         <h2></h2>
         <figure class="avatar">
           <img src="Resources/icon.png" /></figure>
@@ -35,8 +32,8 @@
       </div>
       
       <div class="message-box">
-        <textarea type="text" class="message-input" placeholder="Type message..." id="userinput"></textarea>
-        <button type="submit" class="message-submit" onclick="StartRecording()" id="micr">Record</button>
+        <textarea type="text" class="message-input" placeholder="Type message..." id="userinput" autofocus></textarea>
+        <button type="submit" class="message-submit" onclick="StartRecording()" id="micr">Speak!</button>
       </div>
 
     </div>
@@ -52,25 +49,16 @@
     {
       StartSpeaking();
     }
-    function getSessionId(){
-    	sesId = Math.floor(Math.random()*10000000000);
-    }
-
-    function StartSpeaking() 
-{
-  if(speak == 0)
-  {
-    speak = 1;
-//    tts();
-    document.getElementById("spkr").src = "Resources/loud.png";
-  }
-  else
-    if(speak == 1)
+    function getSessionId()
     {
-      speak = 0;
-      document.getElementById("spkr").src = "Resources/mute.png";
+    	sesId = Math.floor(Math.random()*10000000000);
+      localStorage.setItem("sessionID", sesId);
+      localStorage.setItem("issue", "");
+      log.info("SessionID: "+ sesId);
+    	inp = "Hi";
+    	send();
+      Speak();
     }
-}
 
     </script>
 

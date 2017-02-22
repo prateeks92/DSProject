@@ -1,5 +1,6 @@
 var speak = 0;
 var record = 0;
+var log = log4javascript.getDefaultLogger();
 
 function StartRecording() 
 {
@@ -53,12 +54,14 @@ function startAsr()
 		//Displaying the result
 		recognition.onresult = function(e) 
 		{
-        	document.getElementById('userinput').innerHTML = e.results[0][0].transcript;
         	stopRecognition(recognition);
+        	document.getElementById('userinput').innerHTML = e.results[0][0].transcript;
+        	log.info("User: "+e.results[0][0].transcript);
 		};
       
 	    recognition.onerror = function(e) 
 	    {
+	    	log.error("An error occured in recognition");
         	recognition.stop();
 		}
     }
@@ -87,6 +90,7 @@ function send()
 			//reply is being parsed
 			reply = JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2);
 			var val = trans + text + "\n" + JSON.stringify(data['result']['fulfillment']['speech'], undefined, 2) + "\n\n";
+			log.info("System: "+val);
 			setResponse(val);
 			if (speak == 1) 
 			{
@@ -96,11 +100,12 @@ function send()
 		error: function() 
 		{
 			setResponse("Internal Server Error");
+			log.error("Internal Server Error");
 		}
 	});
 
 	setResponse("Loading...");
-		
+	log.info("Loading");	
 }
 
 function switchRecognition() 
